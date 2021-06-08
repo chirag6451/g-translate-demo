@@ -14,11 +14,9 @@ class GoogleTranslateService {
 
 	public function translateText($request)
     {
-
-        $result = $this->translate->translate($request->get('text'), [
-            'target' => $request->get('language')
+        $result = $this->translate->translate($request->text, [
+            'target' => $request->language
         ]);
-
         $response = [
         	'success' => ($result['text']) ? true : false,
         	'error' => !empty($result['text']) ? '' : 'No result found!',
