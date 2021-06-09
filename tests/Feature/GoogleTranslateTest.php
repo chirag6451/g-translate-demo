@@ -44,7 +44,7 @@ class GoogleTranslateTest extends TestCase
         $googleTranslateService  = new GoogleTranslateService($mockTranslateClient);
 
         $params  = (object)array('text' => 'this is test', 'language' => 'hi');
-
+        
         $mockReportResponse = [
               "source" => "en",
               "input" => "this is test",

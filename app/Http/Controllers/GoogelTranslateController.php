@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\GoogleTranslate\GoogleTranslateService;
+use Illuminate\Support\Facades\Validator;
 
 class GoogelTranslateController extends Controller
 {
-    public $googleTranslateService;
+    /**
+     * The google translate service implementation.
+     *
+     * @var GoogleTranslateService
+     */
+    protected $googleTranslateService;
 
     /**
-     * Instantiate a new GoogleTranslateService instance.
+     * Create a new GoogleTranslateService instance.
+     *
+     * @param  GoogleTranslateService  $googleTranslateService
+     * @return void
      */
     public function __construct(GoogleTranslateService $googleTranslateService)
     {
@@ -18,14 +27,26 @@ class GoogelTranslateController extends Controller
     }
 
     /**
-     * Display a result of the translated text.
+     * Validate request and display a result of the translated text.
      *
-     * @return \App\Services\GoogleTranslate\GoogleTranslateService
+     * @param  string  $formdata
+     * @return json Response
      */
     public function googleFormData(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'text'     => 'required',
+            'language' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $response['success']        = false;
+            $response['error']          = $validator->errors()->first();
+            $response['translation']    = $request->get('text');
+            return response()->json($response);            
+        }
+
         $response  = $this->googleTranslateService->translateText($request);
         return response()->json($response);
     }
 }
-    
