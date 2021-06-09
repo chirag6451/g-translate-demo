@@ -22,12 +22,17 @@ class GoogleTranslateService {
      */
 	public function translateText($request)
     {
+        $validator = Validator::make($request->all(), [
+            'text'     => 'required',
+            'language' => 'required',
+        ]);
+
         $result = $this->translate->translate($request->text, [
             'target' => $request->language
         ]);
         $response = [
         	'success' => ($result['text']) ? true : false,
-        	'error' => !empty($result['text']) ? '' : 'No result found!',
+        	'error' => !empty($result['text']) ? '' : $validator->errors()->first(),
         	'translation' => $result['text'] ?? null
         ];
 
