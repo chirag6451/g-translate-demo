@@ -14,7 +14,7 @@ use Google\Cloud\Translate\V2\TranslateClient;
  */
 class GoogleTranslateServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-	/**
+		/**
 	     * Register services.
 	     *
 	     * @return void
@@ -39,7 +39,11 @@ class GoogleTranslateServiceProvider extends ServiceProvider implements Deferrab
 	        //
 	    }
 
-
+	    /**
+	     * Register facade.
+	     *
+	     * @return void
+	     */
 	    private function registerGoogleTranslateFacade()
 	    {
 	        $this->app->bind(GoogleTranslateService::class, function ($app) {
@@ -51,7 +55,7 @@ class GoogleTranslateServiceProvider extends ServiceProvider implements Deferrab
 	    }
 
 	    /**
-	     * Get the services provided by the provider.
+	     * Get the services provided.
 	     *
 	     * @return array
 	     */

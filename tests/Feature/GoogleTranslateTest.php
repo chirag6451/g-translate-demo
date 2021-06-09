@@ -13,20 +13,28 @@ class GoogleTranslateTest extends TestCase
 {
     use WithFaker,WithoutMiddleware;
 
+    /**
+       * This method is called before each test.
+       * @return void
+       */   
     public function setUp():void
     {
         parent::setUp();
     }
 
+    /**
+       * This method is called before each test.
+       * @return void
+       */ 
     public function tearDown():void
     {
         Mockery::close();
     }
 
     /**
-     * A basic feature test example.
+     * A basic feature test google translate.
      *
-     * @return void
+     * @return json response
      */
     public function test_google_translate()
     {

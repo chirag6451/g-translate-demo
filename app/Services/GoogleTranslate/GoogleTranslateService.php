@@ -7,11 +7,19 @@ use Illuminate\Support\Facades\Validator;
 class GoogleTranslateService {
 
 	public $translate;
+    /**
+     * Instantiate a new TranslateClient instance.
+     */
     public function __construct(TranslateClient $translateClient)
     {
         $this->translate = $translateClient;
     }
 
+    /**
+     * Return result of the translated text.
+     *
+     * @return \App\Services\GoogleTranslate\GoogleTranslateService
+     */
 	public function translateText($request)
     {
         $result = $this->translate->translate($request->text, [
